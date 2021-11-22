@@ -2,6 +2,7 @@ package server;
 // This file contains material supporting section 3.7 of the textbook:
 
 import java.util.ArrayList;
+
 import logic.Order;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -44,45 +45,32 @@ public class MainServer extends AbstractServer {
 	 * @param msg    The message received from the client.
 	 * @param client The connection from which the message originated.
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		int flag = 0;
-		System.out.println("Message received: " + msg + " from " + client);
-		for (int i = 0; i < 6; i++)
 
-			if (order[i].getOrderNumber().equals(msg)) {
+		if (msg instanceof String[]) {
+			DB.DBConnector.updateData(DB.DBConnector.connectToDB(), (String[]) msg);
+			System.out.println("Updated");
+		} else {
+			int flag = 0;
+			System.out.println("Message received: " + msg + " from " + client);
+			for (int i = 0; i < 6; i++)
 
-				System.out.println("Server Found");
+				if (order[i].getOrderNumber().equals(msg)) {
 
-				this.sendToAllClients(order[i].toString());
-				flag = 1;
+					System.out.println("Server Found");
+
+					this.sendToAllClients(order[i].toString());
+					flag = 1;
+				}
+			if (flag != 1) {
+				System.out.println("Not Found");
+				this.sendToAllClients("Error");
 
 			}
-		if (flag != 1) {
-			System.out.println("Not Found");
-			this.sendToAllClients("Error");
-
 		}
-
-//		if (msg instanceof ArrayList<?>) {
-//			String[] myNewData = new String[6];
-//			myNewData = ((ArrayList<String>) msg).toArray(new String[6]);
-//			for (int i = 0; i < 6; i++) {
-//				if (myNewData[0] == order[i].getRestaurant()) {
-//					order[i].setRestaurant(myNewData[0]);
-//					order[i].setOrderNumber(myNewData[1]);
-//					order[i].setOrderTime(myNewData[2]);
-//					order[i].setPhoneNumber(myNewData[3]);
-//					order[i].setTypeOfOrder(myNewData[4]);
-//					order[i].setOrderAddress(myNewData[5]);
-//				}
-//				this.sendToAllClients(order[i].toString());
-//				
-//			}
 	}
-
-//		
 
 	/**
 	 * This method overrides the one in the superclass. Called when the server
@@ -90,7 +78,9 @@ public class MainServer extends AbstractServer {
 	 */
 	protected void serverStarted() {
 		System.out.println("Server listening for connections on port " + getPort());
-		order = DB.DBConnector.connectToDB(null);
+
+		order = DB.DBConnector.shareData(DB.DBConnector.connectToDB());
+
 	}
 
 	/**

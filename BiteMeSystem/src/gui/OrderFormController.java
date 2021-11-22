@@ -3,6 +3,7 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import client.ChatClient;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,23 +81,24 @@ public class OrderFormController implements Initializable {
 
 	}
 
-//	@FXML // Errors // ********
-//	public void getSaveBtn(ActionEvent event) throws Exception {
-//		System.out.println("Save  Tool");
-////		order.setRestaurant(txtRestaurant.getText());
-////		order.setOrderNumber(txtOrderNumber.getText());
-////		order.setOrderTime(txtOrderTime.getText());	
-////		System.out.println(order);
-//		
-////		String selectedObject =  cmbFaculty.getValue().toString();		
-////		Faculty abc = new Faculty(  cmbFaculty.getValue().toString(), s.getFc().getFPhone());		
-////		s.setFc(abc);
-//		//student.setFc(Faculty.getFaculty(cmbFaculty.getValue().toString()));		
-////	    ClientConsole.accept(order.toString());
-//		//ChatClient.accept((Object)student);
-////		System.out.println("\n"+order);
-//		//sendToServer(txtName.getText());
-//	}
+	@FXML
+	public void getEditOrder(ActionEvent event) throws Exception {
+		((Node) event.getSource()).getScene().getWindow().hide(); // hide main window
+		FXMLLoader loader2 = new FXMLLoader();
+		AnchorPane root = (AnchorPane) loader2.load(getClass().getResource("/gui/EditOrderForm.fxml").openStream());
+		EditOrderFormController orderFormController = loader2.getController();
+		orderFormController.loadEdit(ChatClient.o1);
+		Stage primaryStage = new Stage();
+
+//		EditOrderFormController editOrderFormController = loader2.getController();
+//		editOrderFormController.loadOrderNumber(BMClient.o1); // load data to order form
+
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("BM-Edit Order");
+		primaryStage.show();
+	}
 
 	@FXML // return to main window
 	public void getBackBtn(ActionEvent event) throws Exception {

@@ -10,11 +10,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import logic.Order;
+import server.MainServer;
 
 public class DBConnector {
 	private static Order[] order = new Order[6];
 
-	public static Order[] connectToDB(Object arr) {
+	public static Connection connectToDB() {
+		Connection conn = null;
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -26,20 +28,20 @@ public class DBConnector {
 
 		try {
 
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bitemesystem?serverTimezone=IST",
-					"root", "@Elad15643");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/bitemesystem?serverTimezone=IST", "root",
+					"@Elad15643");
 			System.out.println("SQL connection succeed");
-			order = shareData(conn);
+
 		} catch (SQLException ex) {/* handle any errors */
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
-		return order;
+		return conn;
 
 	}
 
-	private static Order[] shareData(Connection conn) {
+	public static Order[] shareData(Connection conn) {
 		Statement stmt;
 		int i = 0;
 		try { // saving orders data
@@ -57,25 +59,24 @@ public class DBConnector {
 		return order;
 	}
 
-	public static String[] parsingTheData(Object arr) {
-		@SuppressWarnings("unchecked") // using ArrayList<String> only so we don't need to check safety
-		ArrayList<String> ar = (ArrayList<String>) arr;
-		return ar.toArray(new String[ar.size()]);
-	}
+//	public static String[] parsingTheData(Object arr) {
+//		@SuppressWarnings("unchecked") // using ArrayList<String> only so we don't need to check safety
+//		ArrayList<String> ar = (ArrayList<String>) arr;
+//		return ar.toArray(new String[ar.size()]);
+//	}
 
-	public static void saveUserToDB(Connection con, String[] arrUser) {
+	public static void updateData(Connection con, String[] arrUser) {
 		PreparedStatement ps;
 		try {
 			//
-			ps = con.prepareStatement(
-					"INSERT INTO userdetail (UserName, ID, Department, Tel)\r\n" + "VALUES (?,?, ?,?);");
-			ps.setString(1, arrUser[0]);
-			ps.setString(2, arrUser[1]);
+			ps = con.prepareStatement("UPDATE bitemesystem.order\r\n" + "SET TypeOfOrder = ?, OrderAddress= ? \r\n"
+					+ "WHERE OrderNumber = ?;");
+
+			ps.setString(1, arrUser[1]);
+			ps.setString(2, arrUser[0]);
 			ps.setString(3, arrUser[2]);
-			ps.setString(4, arrUser[3]);
 
 			ps.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
