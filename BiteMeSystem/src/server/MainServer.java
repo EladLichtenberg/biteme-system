@@ -90,8 +90,7 @@ public class MainServer extends AbstractServer {
 	 */
 	protected void serverStarted() {
 		System.out.println("Server listening for connections on port " + getPort());
-		order[0] = new Order("BBB", "1", "12:00", "0543386695", "Early", "Haifa");
-		order[1] = new Order("Moses", "2", "11:00", "0543386695", "Regular", "Tira");
+		order = DB.DBConnector.connectToDB(null);
 	}
 
 	/**
