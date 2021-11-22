@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="258.0"
+	prefWidth="491.0" xmlns="http://javafx.com/javafx/16"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.MainFormController">
+	<children>
+		<Text layoutX="147.0" layoutY="52.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Welcome to BiteMe" textAlignment="CENTER"
+			wrappingWidth="196.72265625">
+			<font>
+				<Font size="24.0" />
+			</font>
+		</Text>
+		<Button fx:id="btnShowOrder" layoutX="351.0" layoutY="185.0"
+			mnemonicParsing="false" onAction="#getShowOrderBtn" prefHeight="49.0"
+			prefWidth="116.0" text="Show order" />
+		<Button fx:id="btnExit" layoutX="41.0" layoutY="210.0"
+			mnemonicParsing="false" onAction="#getExitBtn" prefHeight="27.0"
+			prefWidth="73.0" text="Exit" />
+		<Label layoutX="58.0" layoutY="115.0" text="Enter order number:">
+			<font>
+				<Font size="18.0" />
+			</font>
+		</Label>
+		<TextField fx:id="txtOrderNumber" layoutX="259.0"
+			layoutY="108.0" prefHeight="42.0" prefWidth="169.0" />
+	</children>
+</AnchorPane>
