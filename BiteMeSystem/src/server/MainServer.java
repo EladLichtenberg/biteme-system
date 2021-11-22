@@ -37,6 +37,10 @@ public class MainServer extends AbstractServer {
 		super(port);
 	}
 
+//	public static void setFlag() {
+//		editFlag = 1;
+//	}
+
 	// Instance methods ************************************************
 
 	/**
@@ -48,27 +52,29 @@ public class MainServer extends AbstractServer {
 
 	@Override
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-
 		if (msg instanceof String[]) {
+
 			DB.DBConnector.updateData(DB.DBConnector.connectToDB(), (String[]) msg);
 			System.out.println("Updated");
-		} else {
-			int flag = 0;
-			System.out.println("Message received: " + msg + " from " + client);
-			for (int i = 0; i < 6; i++)
+			this.sendToAllClients("Updated");
+			return;
+		}
 
-				if (order[i].getOrderNumber().equals(msg)) {
+		int flag = 0;
+		System.out.println("Message received: " + msg + " from " + client);
+		for (int i = 0; i < 6; i++)
 
-					System.out.println("Server Found");
+			if (order[i].getOrderNumber().equals(msg)) {
 
-					this.sendToAllClients(order[i].toString());
-					flag = 1;
-				}
-			if (flag != 1) {
-				System.out.println("Not Found");
-				this.sendToAllClients("Error");
+				System.out.println("Server Found");
 
+				this.sendToAllClients(order[i].toString());
+				flag = 1;
 			}
+		if (flag != 1) {
+			System.out.println("Not Found");
+			this.sendToAllClients("Error");
+
 		}
 	}
 

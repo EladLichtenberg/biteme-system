@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import logic.Order;
+import server.MainServer;
 
 public class EditOrderFormController {
 	private Order order;
@@ -52,6 +53,7 @@ public class EditOrderFormController {
 
 	}
 
+	@FXML
 	public void getSaveBtn(ActionEvent event) throws Exception {
 		String address, type;
 		address = getOrderAddress();
@@ -60,6 +62,7 @@ public class EditOrderFormController {
 		arrData[0] = address;
 		arrData[1] = type;
 		arrData[2] = getOrderNumber();
+//		MainServer.setFlag();
 		BMClientUI.chat.accept(arrData);
 	}
 
