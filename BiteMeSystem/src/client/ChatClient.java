@@ -75,7 +75,7 @@ public class ChatClient extends AbstractClient {
 	 * @param message The message from the UI.
 	 */
 
-	public void handleMessageFromClientUI(Object message) // changed
+	public void handleMessageFromClientUI(String message) // changed
 	{
 		try {
 			openConnection();// in order to send more than one message
