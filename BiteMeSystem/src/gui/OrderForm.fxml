@@ -14,7 +14,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="100.0" layoutY="105.0" text="OrderNumber:">
+      <Label layoutX="74.0" layoutY="104.0" text="OrderNumber:">
          <font>
             <Font size="15.0" />
          </font>
@@ -39,18 +39,24 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtRestaurant" layoutX="176.0" layoutY="169.0" prefHeight="27.0" prefWidth="283.0" />
-      <TextField fx:id="txtOrderNumber" layoutX="213.0" layoutY="101.0" prefHeight="27.0" prefWidth="201.0" />
-      <TextField fx:id="txtOrderAddress" layoutX="176.0" layoutY="408.0" prefHeight="27.0" prefWidth="283.0" />
-      <TextField fx:id="txtPhoneNumber" layoutX="172.0" layoutY="289.0" prefHeight="27.0" prefWidth="283.0" />
-      <TextField fx:id="txtOrderTime" layoutX="172.0" layoutY="224.0" prefHeight="27.0" prefWidth="283.0" />
+      <TextField fx:id="txtRestaurant" layoutX="193.0" layoutY="169.0" prefHeight="27.0" prefWidth="262.0" />
+      <TextField fx:id="txtOrderNumber" layoutX="192.0" layoutY="101.0" prefHeight="27.0" prefWidth="262.0" />
+      <TextField fx:id="txtOrderAddress" layoutX="193.0" layoutY="409.0" prefHeight="27.0" prefWidth="262.0" />
+      <TextField fx:id="txtPhoneNumber" layoutX="193.0" layoutY="289.0" prefHeight="27.0" prefWidth="262.0" />
+      <TextField fx:id="txtOrderTime" layoutX="193.0" layoutY="224.0" prefHeight="27.0" prefWidth="262.0" />
       <Button fx:id="btnBack" layoutX="50.0" layoutY="478.0" mnemonicParsing="false" onAction="#getBackBtn" prefHeight="37.0" prefWidth="71.0" text="Back" />
       <Button id="btnEditOrder" fx:id="btnEditOrder" layoutX="390.0" layoutY="478.0" mnemonicParsing="false" onAction="#getEditOrder" prefHeight="37.0" prefWidth="91.0" text="Edit Order" />
-      <Text layoutX="172.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order details">
+      <Text layoutX="72.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order details">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="txtTypeOfOrder" layoutX="176.0" layoutY="343.0" prefHeight="27.0" prefWidth="283.0" />
+      <TextField fx:id="txtTypeOfOrder" layoutX="193.0" layoutY="344.0" prefHeight="27.0" prefWidth="262.0" />
+      <Label layoutX="237.0" layoutY="12.0" prefHeight="29.0" prefWidth="225.0" text="You are now connected on IP:">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtIP" layoutX="392.0" layoutY="14.0" prefHeight="25.0" prefWidth="125.0" />
    </children>
 </AnchorPane>

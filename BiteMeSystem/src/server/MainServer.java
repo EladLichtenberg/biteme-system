@@ -1,8 +1,10 @@
 package server;
 // This file contains material supporting section 3.7 of the textbook:
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
+import client.BMClientUI;
 import logic.Order;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -26,6 +28,7 @@ public class MainServer extends AbstractServer {
 //	final public static int DEFAULT_PORT = 5555;
 	ArrayList<Order> array = new ArrayList<Order>();
 	public static Order[] order = new Order[6];
+	public static String ipAdrr;
 	// Constructors ****************************************************
 
 	/**
@@ -52,6 +55,9 @@ public class MainServer extends AbstractServer {
 
 	@Override
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
+
+		ipAdrr = client.toString();
+
 		if (msg instanceof String[]) {
 
 			DB.DBConnector.updateData(DB.DBConnector.connectToDB(), (String[]) msg);
@@ -59,22 +65,22 @@ public class MainServer extends AbstractServer {
 			this.sendToAllClients("Updated");
 			return;
 		}
-
+		int m = 0;
 		int flag = 0;
 		System.out.println("Message received: " + msg + " from " + client);
-		for (int i = 0; i < 6; i++)
-
-			if (order[i].getOrderNumber().equals(msg)) {
-
-				System.out.println("Server Found");
-
-				this.sendToAllClients(order[i].toString());
-				flag = 1;
+		m = Integer.parseInt((String) msg);
+		if (order[m - 1] != null) {
+			for (int i = 0; i < 6; i++) {
+				if (order[i].getOrderNumber().equals(msg)) {
+					System.out.println("Server Found");
+					this.sendToAllClients(order[i].toString());
+					flag = 1;
+				}
 			}
+		}
 		if (flag != 1) {
 			System.out.println("Not Found");
 			this.sendToAllClients("Error");
-
 		}
 	}
 
@@ -84,9 +90,7 @@ public class MainServer extends AbstractServer {
 	 */
 	protected void serverStarted() {
 		System.out.println("Server listening for connections on port " + getPort());
-
 		order = DB.DBConnector.shareData(DB.DBConnector.connectToDB());
-
 	}
 
 	/**

@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import logic.Order;
+import server.MainServer;
 
 public class OrderFormController implements Initializable {
 	private Order order;
@@ -33,6 +34,8 @@ public class OrderFormController implements Initializable {
 	private Label lblTypeOfOrder;
 	@FXML
 	private Label lblOrderAddress;
+	@FXML
+	private TextField txtIP;
 
 	@FXML
 	private TextField txtRestaurant;
@@ -57,6 +60,7 @@ public class OrderFormController implements Initializable {
 
 	public void loadOrder(Order ord) {
 		this.order = ord;
+		this.txtIP.setText(MainServer.ipAdrr);
 		this.txtRestaurant.setText(order.getRestaurant());
 		this.txtOrderNumber.setText(order.getOrderNumber());
 		this.txtOrderTime.setText(order.getOrderTime());

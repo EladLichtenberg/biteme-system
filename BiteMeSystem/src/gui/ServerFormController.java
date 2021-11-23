@@ -7,33 +7,34 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import logic.Order;
 import server.BMServerUI;
 
 public class ServerFormController {
 
 	@FXML
-	private Label IpLabel;
+	private TextField txtIP;
 
-	@FXML
-	private Label PortLabel;
-
-	@FXML
-	private TextField IpTextField;
 	@FXML
 	private TextField PortTextField;
 
 	@FXML
-	private Button ExitBtn = null;
+	private TextField txtStatus;
+
 	@FXML
-	private Button ConnectBtn = null;
+	private Button ConnectBtn;
+
 	@FXML
-	private Button DisconnectBtn = null;
+	private Button ExitBtn;
 
 	private String getport() {
 		return PortTextField.getText();
+	}
+
+	public void loadServer() {
+		this.txtStatus.setText("Active");
 
 	}
 
@@ -42,13 +43,13 @@ public class ServerFormController {
 		port = getport();
 		if (port.trim().isEmpty()) {
 			System.out.println("You must enter a port number");
-
 		} else {
-
-			((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
+			// ((Node) event.getSource()).getScene().getWindow().hide(); // hide main window
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
 			BMServerUI.runServer(port);
+			loadServer();
+
 		}
 	}
 
@@ -56,9 +57,8 @@ public class ServerFormController {
 		Parent root = FXMLLoader.load(getClass().getResource("/gui/ServerForm.fxml"));
 
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("Client");
+		primaryStage.setTitle("Server");
 		primaryStage.setScene(scene);
-
 		primaryStage.show();
 	}
 
@@ -66,7 +66,6 @@ public class ServerFormController {
 		System.out.println("Exit Server Window");
 		System.exit(0);
 	}
-
 
 	public void getDisconnectBtn(ActionEvent event) throws Exception {
 		System.out.println("Disconnect Server");

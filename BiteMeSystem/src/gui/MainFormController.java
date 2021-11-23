@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import logic.Order;
+import server.MainServer;
 
 public class MainFormController {
 
@@ -47,11 +48,12 @@ public class MainFormController {
 		if (OrderNumber.trim().isEmpty()) {
 
 			System.out.println("You must enter order number");
+
 		} else {
 
 			BMClientUI.chat.accept(OrderNumber);
 
-			if (ChatClient.o1.getOrderNumber().equals("Error")) {
+			if (ChatClient.o1.getRestaurant().equals("Error")) {
 				System.out.println("Order number Not Found");
 
 			} else {
